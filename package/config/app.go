@@ -3,16 +3,18 @@ package config
 import (
 	"fmt"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 )
 
 var db *gorm.DB
 
-func connect() {
-	d, err := gorm.Open("mysql", "arsalan:arsalan/bookstore?charset=utf8&parseTime=true&loc=Local")
+func Connect() {
+	d, err := gorm.Open("mysql", "docker:password@tcp(http://localhost:3306)/godocker?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
+		fmt.Println(err)
 		fmt.Println("connection to database fails.")
-		panic(err)
+		panic(err.Error())
 	}
 	db = d
 }
